@@ -1,40 +1,47 @@
-# Margonem – clan fee tracker
+# Margoladki – menedżer składek Margonem
 
-Userscript for [Margonem](https://www.margonem.pl) (new interface) that records gold deposits from the clan history
-and compares them with the list of clan members and their required fees.
+Skrypt użytkownika do [Margonem](https://www.margonem.pl) (nowy interfejs), który spisuje wpłaty złota z historii klanu
+i porównuje je z listą klanowiczów oraz wymaganymi składkami.
 
-## Features
+> [!IMPORTANT]
+> **Skrypt działa w całości po stronie przeglądarki (frontend).**
+> Nie korzysta z żadnego API ani serwera – dane odczytuje bezpośrednio ze strony gry, z tego co jest wyświetlone
+> w oknie klanu (historia, skarbiec, członkowie). Wszystko zapisuje w `localStorage` przeglądarki, więc dane są
+> widoczne tylko na tym komputerze i w tej przeglądarce. Wyczyszczenie danych przeglądarki usuwa też zapisane wpłaty –
+> regularnie rób kopię zapasową (`skladki.kopia()`).
 
-- Reads deposits (`+N złota /Nick`) from the clan history and stores them locally
-- Picks up the member list and levels from the clan treasury / member tabs
-- Per-player required fees, including progressive fees based on character level thresholds
-- Report with paid / required / balance per player, sorting and search
-- Alt-account (multikonto) and blacklist marking, nickname migration after a name change
-- Backup export / import (JSON) and optional Discord webhook upload of backups and report screenshots
+## Funkcje
 
-## Installation
+- Odczytuje wpłaty (`+N złota /Nick`) z historii klanu i zapisuje je lokalnie
+- Pobiera listę klanowiczów i ich poziomy ze skarbca i zakładki członków
+- Indywidualne składki dla graczy, w tym składka progresywna zależna od poziomu postaci
+- Raport z wpłaconą kwotą, wymaganą składką i bilansem każdego gracza, z sortowaniem i wyszukiwaniem
+- Oznaczanie multikont i czarnej listy, przenoszenie danych po zmianie nicku
+- Eksport i import kopii zapasowej (JSON) oraz opcjonalna wysyłka kopii i screenów raportu przez webhook Discorda
 
-1. Install a userscript manager, e.g. [Tampermonkey](https://www.tampermonkey.net/) or Violentmonkey.
-2. Open [`skladki-klanowe.user.js`](skladki-klanowe.user.js), click **Raw** – the manager will offer to install it.
-3. Log in to Margonem and open the clan window (history / treasury) – data is collected automatically.
+## Instalacja
 
-## Usage
+1. Zainstaluj menedżer skryptów, np. [Tampermonkey](https://www.tampermonkey.net/) lub Violentmonkey.
+2. Otwórz plik [`skladki-klanowe.user.js`](skladki-klanowe.user.js) i kliknij **Raw** – menedżer zaproponuje instalację.
+3. Zaloguj się do Margonem i otwórz okno klanu (historia / skarbiec) – dane zbierają się automatycznie.
 
-Buttons are added to the clan window. Additional commands are available in the browser console (F12):
+## Użycie
 
-| Command | Description |
+Skrypt dodaje przyciski do okna klanu. Dodatkowe komendy są dostępne w konsoli przeglądarki (F12):
+
+| Komenda | Opis |
 | --- | --- |
-| `skladki.raport()` | Show the fee report |
-| `skladki.kopia()` / `skladki.wczytajKopie()` | Export / import a backup |
-| `skladki.ustawStart('DD.MM.YYYY')` | Ignore history entries older than the given day |
-| `skladki.migrujNick('old', 'new')` | Move data after a nickname change |
-| `skladki.ustawWebhook(url)` | Set a Discord webhook for backups |
-| `skladki.ustawWebhookKlanowy(url)` | Set a Discord webhook for clan reports |
-| `skladki.usunWebhook()` / `skladki.usunWebhookKlanowy()` | Disable Discord uploads |
+| `skladki.raport()` | Pokazuje raport składek |
+| `skladki.kopia()` / `skladki.wczytajKopie()` | Pobiera / wczytuje kopię zapasową |
+| `skladki.ustawStart('DD.MM.RRRR')` | Pomija wpisy z historii starsze niż podany dzień |
+| `skladki.migrujNick('stary', 'nowy')` | Przenosi dane po zmianie nicku |
+| `skladki.ustawWebhook(url)` | Ustawia webhook Discorda dla kopii zapasowych |
+| `skladki.ustawWebhookKlanowy(url)` | Ustawia webhook Discorda dla raportów klanowych |
+| `skladki.usunWebhook()` / `skladki.usunWebhookKlanowy()` | Wyłącza wysyłkę na Discorda |
 
-Discord webhooks are **not** bundled with the script – each user sets their own.
+Webhooki Discorda **nie** są wbudowane w skrypt – każdy ustawia własne.
 
-## Data
+## Dane
 
-All data is kept in the browser's `localStorage` (keys prefixed with `klanSkladki`). Nothing is sent anywhere
-unless a Discord webhook is configured.
+Wszystkie dane są przechowywane w `localStorage` przeglądarki (klucze zaczynające się od `klanSkladki`).
+Nic nie jest nigdzie wysyłane, dopóki nie ustawisz webhooka Discorda.
