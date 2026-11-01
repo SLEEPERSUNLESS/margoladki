@@ -7,8 +7,7 @@ i porównuje je z listą klanowiczów oraz wymaganymi składkami.
 > **Skrypt działa w całości po stronie przeglądarki (frontend).**
 > Nie korzysta z żadnego API ani serwera – dane odczytuje bezpośrednio ze strony gry, z tego co jest wyświetlone
 > w oknie klanu (historia, skarbiec, członkowie). Wszystko zapisuje w `localStorage` przeglądarki, więc dane są
-> widoczne tylko na tym komputerze i w tej przeglądarce. Wyczyszczenie danych przeglądarki usuwa też zapisane wpłaty –
-> regularnie rób kopię zapasową (`skladki.kopia()`).
+> widoczne tylko na tym komputerze i w tej przeglądarce. Wyczyszczenie danych przeglądarki usuwa też zapisane wpłaty.
 
 ## Funkcje
 
@@ -39,7 +38,7 @@ Skrypt dodaje przyciski do okna klanu. Dodatkowe komendy są dostępne w konsoli
 | `skladki.ustawWebhookKlanowy(url)` | Ustawia webhook Discorda dla raportów klanowych |
 | `skladki.usunWebhook()` / `skladki.usunWebhookKlanowy()` | Wyłącza wysyłkę na Discorda |
 
-Webhooki Discorda **nie** są wbudowane w skrypt – każdy ustawia własne.
+Webhooki Discorda **nie** są wbudowane w skrypt.
 
 ## Dane
 
